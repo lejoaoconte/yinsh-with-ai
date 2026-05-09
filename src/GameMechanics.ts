@@ -46,18 +46,15 @@ const DIRECTIONS: Coord[] = [
 
 const REMOVED_CORNERS = new Set(["0,-5", "5,-5", "5,0", "0,5", "-5,5", "-5,0"]);
 
-// Converte coordenadas axiais (q, r) em uma string "q,r" usada como chave no mapa do tabuleiro
 export function coordKey(q: number, r: number): string {
   return `${q},${r}`;
 }
 
-// Converte uma string "q,r" de volta para um objeto Coord com as coordenadas axiais
 export function parseCoord(key: string): Coord {
   const [q, r] = key.split(",").map(Number);
   return { q, r };
 }
 
-// Converte coordenadas axiais (q, r) em coordenadas de pixel (x, y) para renderização no canvas
 export function coordToPixel(
   q: number,
   r: number,
@@ -69,7 +66,6 @@ export function coordToPixel(
   };
 }
 
-// Gera o conjunto de todas as posições válidas do tabuleiro hexagonal, excluindo os 6 cantos removidos
 function generateValidPositions(): Set<string> {
   const positions = new Set<string>();
   for (let r = -BOARD_RADIUS; r <= BOARD_RADIUS; r++) {
@@ -90,7 +86,6 @@ export const VALID_POSITIONS = generateValidPositions();
 export class YinshGame {
   private state: YinshState;
 
-  // Inicializa o jogo com um estado fornecido ou cria um tabuleiro vazio com configurações padrão
   constructor(state?: YinshState) {
     if (state) {
       this.state = state;
@@ -113,12 +108,10 @@ export class YinshGame {
     }
   }
 
-  // Retorna o estado atual do jogo como somente leitura
   getState(): Readonly<YinshState> {
     return this.state;
   }
 
-  // Cria uma cópia profunda do jogo atual, útil para simulações da IA
   clone(): YinshGame {
     return new YinshGame({
       board: new Map(this.state.board),
@@ -136,7 +129,6 @@ export class YinshGame {
     });
   }
 
-  // Retorna a lista de movimentos válidos para a fase atual do jogo
   getValidMoves(): string[] {
     const { phase, board, currentPlayer, selectedRing, runRemovalPlayer } =
       this.state;
@@ -186,7 +178,6 @@ export class YinshGame {
     }
   }
 
-  // Retorna as ações disponíveis formatadas como objetos com tipo, alvo e índice de sequência (para a IA)
   getAvailableActions(): {
     type: string;
     target: string;
@@ -208,7 +199,6 @@ export class YinshGame {
     }));
   }
 
-  // Coloca um anel na posição indicada durante a fase de colocação de anéis
   placeRing(coord: string): boolean {
     if (this.state.phase !== "placing-rings") return false;
     if (!VALID_POSITIONS.has(coord)) return false;
@@ -227,7 +217,6 @@ export class YinshGame {
     return true;
   }
 
-  // Coloca um marcador na posição de um anel do jogador atual e seleciona esse anel para mover
   placeMarker(coord: string): boolean {
     if (this.state.phase !== "place-marker") return false;
     const ringType = this.state.currentPlayer === "white" ? "W_RING" : "B_RING";
@@ -241,7 +230,6 @@ export class YinshGame {
     return true;
   }
 
-  // Move o anel selecionado para o destino, invertendo os marcadores no caminho, e verifica sequências
   moveRing(dest: string): boolean {
     if (this.state.phase !== "move-ring") return false;
     if (!this.state.selectedRing) return false;
@@ -259,7 +247,6 @@ export class YinshGame {
     return true;
   }
 
-  // Seleciona uma sequência de 5 marcadores para remover do tabuleiro
   selectRun(runIndex: number): boolean {
     if (this.state.phase !== "remove-run") return false;
     const playerRuns = this.state.detectedRuns.filter(
@@ -277,7 +264,6 @@ export class YinshGame {
     return true;
   }
 
-  // Remove um anel do jogador que completou a sequência, verificando vitória ou continuidade do jogo
   removeRing(coord: string): boolean {
     if (this.state.phase !== "remove-ring") return false;
     const ringType =
@@ -320,7 +306,6 @@ export class YinshGame {
     return true;
   }
 
-  // Calcula os movimentos válidos de um anel: avança em linha reta, podendo pular marcadores e parar após eles
   private getValidRingMoves(fromCoord: string): string[] {
     const from = parseCoord(fromCoord);
     const validMoves: string[] = [];
@@ -353,7 +338,6 @@ export class YinshGame {
     return validMoves;
   }
 
-  // Inverte a cor de todos os marcadores entre a posição de origem e destino do anel movido
   private flipMarkersBetween(fromCoord: string, toCoord: string): void {
     const from = parseCoord(fromCoord);
     const to = parseCoord(toCoord);
@@ -373,7 +357,6 @@ export class YinshGame {
     }
   }
 
-  // Verifica se existem sequências de 5 marcadores após um movimento e transiciona a fase do jogo
   private checkForRuns(): void {
     const runs = this.detectRuns();
     if (runs.length > 0) {
@@ -396,7 +379,6 @@ export class YinshGame {
     }
   }
 
-  // Detecta todas as sequências de 5 ou mais marcadores consecutivos da mesma cor nos 3 eixos do tabuleiro
   private detectRuns(): Run[] {
     const runs: Run[] = [];
     const found = new Set<string>();
@@ -449,7 +431,6 @@ export class YinshGame {
     return runs;
   }
 
-  // Verifica empate: se não há movimentos válidos na fase de colocar marcador, o jogo termina
   private checkForDraw(): void {
     if (this.state.phase !== "place-marker") return;
     if (this.getValidMoves().length === 0) {

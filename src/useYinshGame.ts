@@ -25,13 +25,11 @@ export interface BoardEdge {
   y2: number;
 }
 
-// Hook principal do jogo YINSH: gerencia estado, nós do tabuleiro, arestas, movimentos válidos e ações do jogador
 export const useYinshGame = () => {
   const [game, setGame] = useState(() => new YinshGame());
 
   const state = game.getState();
 
-  // Executa uma ação genérica no jogo, clonando o estado antes para manter a imutabilidade
   const performAction = useCallback((action: (g: YinshGame) => boolean) => {
     setGame((prev) => {
       const clone = prev.clone();
@@ -39,7 +37,6 @@ export const useYinshGame = () => {
     });
   }, []);
 
-  // Gera a lista de nós do tabuleiro com suas coordenadas axiais e posições em pixel
   const nodes: BoardNode[] = useMemo(() => {
     return Array.from(VALID_POSITIONS).map((key) => {
       const { q, r } = parseCoord(key);
@@ -48,7 +45,6 @@ export const useYinshGame = () => {
     });
   }, []);
 
-  // Gera as arestas (linhas) entre nós vizinhos nos 3 eixos do tabuleiro hexagonal
   const edges: BoardEdge[] = useMemo(() => {
     const nodeMap = new Map(nodes.map((n) => [n.key, n]));
     const dirs = [
@@ -77,10 +73,8 @@ export const useYinshGame = () => {
     return result;
   }, [nodes]);
 
-  // Conjunto de movimentos válidos para a fase atual, recalculado quando o jogo muda
   const validMoves = useMemo(() => new Set(game.getValidMoves()), [game]);
 
-  // Trata o clique em uma célula do tabuleiro, executando a ação correspondente à fase atual do jogo
   const handleCellClick = useCallback((coordStr: string) => {
     setGame((prev) => {
       const s = prev.getState();
@@ -118,12 +112,10 @@ export const useYinshGame = () => {
     });
   }, []);
 
-  // Reinicia o jogo criando uma nova instância com estado inicial
   const resetGame = useCallback(() => {
     setGame(new YinshGame());
   }, []);
 
-  // Coleta as coordenadas de todas as sequências detectadas do jogador atual para destacar no tabuleiro
   const runCoords = useMemo(() => {
     const coords = new Set<string>();
     if (state.phase === "remove-run" && state.runRemovalPlayer) {
