@@ -23,13 +23,20 @@ export function serializeState(state: Readonly<YinshState>): string {
 }
 
 export function hashState(state: Readonly<YinshState>): string {
-  const s = serializeState(state);
-  let hash = 5381;
-  for (let i = 0; i < s.length; i++) {
-    hash = ((hash << 5) + hash) ^ s.charCodeAt(i);
-    hash = hash >>> 0;
+  const boardStr = Array.from(state.board.entries())
+    .filter(([, v]) => v !== null)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([k, v]) => `${k}:${v}`)
+    .join(",");
+
+  let h1 = 5381;
+  let h2 = 52711;
+  for (let i = 0; i < boardStr.length; i++) {
+    const c = boardStr.charCodeAt(i);
+    h1 = (((h1 << 5) + h1) ^ c) >>> 0;
+    h2 = (((h2 << 5) + h2) ^ c) >>> 0;
   }
-  return hash.toString(16);
+  return h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0");
 }
 
 export interface TreeNodeData {
@@ -175,6 +182,14 @@ export class GameStateTree {
     this.playedPath = [id];
 
     this._expandChildren(id, game);
+  }
+
+  getStateHash(): string | null {
+    if (!this.currentId) return null;
+    const node = this.nodes.get(this.currentId);
+    if (!node) return null;
+    const state = serializedToState(node.stateSnapshot);
+    return hashState(state);
   }
 
   applyMove(newGame: YinshGame): void {
