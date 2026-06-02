@@ -116,7 +116,7 @@ export function evaluate(
     if (n === 2) return 4;
     if (n === 3) return 18;
     if (n === 4) return 90;
-    return 250; // 5+
+    return 250;
   };
 
   return (
@@ -136,7 +136,6 @@ function minimax(
 ): number {
   const state = game.getState();
 
-  // Consulta tabela de transposição pré-computada
   if (transpositionTable && transpositionTable.size > 0) {
     const h = hashState(state);
     const cached = transpositionTable.get(h);

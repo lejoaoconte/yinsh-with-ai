@@ -1,10 +1,5 @@
 import type { YinshState } from "./GameMechanics";
 
-/**
- * Gera um hash de 64 bits (como string hex) do estado do tabuleiro.
- * Usado como identificador único de nó na árvore de estados e como
- * chave na tabela de transposição do Minimax.
- */
 export function hashState(state: Readonly<YinshState>): string {
   const boardStr = Array.from(state.board.entries())
     .filter(([, v]) => v !== null)

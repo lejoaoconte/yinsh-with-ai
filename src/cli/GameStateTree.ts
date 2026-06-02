@@ -480,15 +480,6 @@ export class GameStateTree {
     return max;
   }
 
-  /**
-   * Calcula a heurística de todos os nós da árvore, do ponto de vista de
-   * `aiPlayer`. Retorna estatísticas de tempo e quantidade.
-   */
-  /**
-   * Retorna um array serializável de [hash, heurística] para todos os nós
-   * com heurística calculada. Pode ser enviado a um Web Worker como
-   * tabela de transposição para o Minimax.
-   */
   getHeuristicTable(): [string, number][] {
     const result: [string, number][] = [];
     for (const [id, node] of this.nodes) {
