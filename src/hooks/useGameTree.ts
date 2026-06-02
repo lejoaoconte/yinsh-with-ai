@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 import { YinshGame } from "cli/GameMechanics";
 import type { Player } from "cli/GameMechanics";
@@ -12,6 +12,8 @@ export function useGameTree(initialGame: YinshGame) {
       return { tree: t, v: 0 };
     },
   );
+
+  const persistentHeurTableRef = useRef<[string, number][]>([]);
 
   const { tree, v: treeVersion } = holder;
 
@@ -47,6 +49,10 @@ export function useGameTree(initialGame: YinshGame) {
   const loadTree = useCallback(
     async (file: File): Promise<YinshGame | null> => {
       const loaded = await GameStateTree.loadFromFile(file);
+      const table = loaded.getHeuristicTable();
+      if (table.length > 0) {
+        persistentHeurTableRef.current = table;
+      }
       setHolder({ tree: loaded, v: 0 });
       return loaded.getCurrentGame();
     },
@@ -65,6 +71,7 @@ export function useGameTree(initialGame: YinshGame) {
   const computeHeuristics = useCallback(
     (aiPlayer: Player) => {
       const res = tree.computeAllHeuristics(aiPlayer);
+      persistentHeurTableRef.current = tree.getHeuristicTable();
       bump();
       return res;
     },
@@ -72,8 +79,8 @@ export function useGameTree(initialGame: YinshGame) {
   );
 
   const getHeuristicTable = useCallback(
-    (): [string, number][] => tree.getHeuristicTable(),
-    [tree],
+    (): [string, number][] => persistentHeurTableRef.current,
+    [],
   );
 
   return {
