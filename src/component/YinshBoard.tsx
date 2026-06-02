@@ -516,7 +516,7 @@ const YinshBoard: React.FC = () => {
               disabled={aiThinking}
             >
               <option value="human">Humano</option>
-              <option value="minimax">IA — Minimax (sem poda)</option>
+              <option value="minimax">IA — Antecipação Limitada</option>
               <option value="alphabeta">IA — Minimax + αβ</option>
             </select>
             {whiteKind !== "human" && (
@@ -547,7 +547,7 @@ const YinshBoard: React.FC = () => {
               disabled={aiThinking}
             >
               <option value="human">Humano</option>
-              <option value="minimax">IA — Minimax (sem poda)</option>
+              <option value="minimax">IA — Antecipação Limitada</option>
               <option value="alphabeta">IA — Minimax + αβ</option>
             </select>
             {blackKind !== "human" && (
