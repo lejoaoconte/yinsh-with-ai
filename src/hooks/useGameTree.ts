@@ -1,6 +1,8 @@
 import { useState, useCallback } from "react";
-import { YinshGame } from "./GameMechanics";
-import { GameStateTree } from "./GameStateTree";
+
+import { YinshGame } from "cli/GameMechanics";
+import type { Player } from "cli/GameMechanics";
+import { GameStateTree } from "cli/GameStateTree";
 
 export function useGameTree(initialGame: YinshGame) {
   const [holder, setHolder] = useState<{ tree: GameStateTree; v: number }>(
@@ -12,13 +14,6 @@ export function useGameTree(initialGame: YinshGame) {
   );
 
   const { tree, v: treeVersion } = holder;
-
-  // Para demonstração em sala
-  // console.log(`Árvore de jogo atualizada. Versão: ${treeVersion}, Total de nós: ${tree.totalNodes}, Profundidade máxima: ${tree.maxDepth}`);
-  // console.log(`Estado atual do jogo:`, tree.getCurrentGame()?.getState());
-  // console.log(`Caminho jogado até agora:`, tree.playedPath);
-  // console.log("Hash atual do estado do jogo:", tree?.getStateHash());
-  // console.log(`Árvore do jogo:`, tree);
 
   const bump = useCallback(
     () => setHolder((h) => ({ tree: h.tree, v: h.v + 1 })),
@@ -67,6 +62,20 @@ export function useGameTree(initialGame: YinshGame) {
     [tree, bump],
   );
 
+  const computeHeuristics = useCallback(
+    (aiPlayer: Player) => {
+      const res = tree.computeAllHeuristics(aiPlayer);
+      bump();
+      return res;
+    },
+    [tree, bump],
+  );
+
+  const getHeuristicTable = useCallback(
+    (): [string, number][] => tree.getHeuristicTable(),
+    [tree],
+  );
+
   return {
     tree,
     treeVersion,
@@ -76,5 +85,7 @@ export function useGameTree(initialGame: YinshGame) {
     saveTree,
     loadTree,
     navigateToNode,
+    computeHeuristics,
+    getHeuristicTable,
   } as const;
 }

@@ -5,8 +5,9 @@ import React, {
   useCallback,
   useState,
 } from "react";
-import { GameStateTree } from "./GameStateTree";
-import type { TreeNodeData } from "./GameStateTree";
+
+import { GameStateTree } from "cli/GameStateTree";
+import type { TreeNodeData } from "cli/GameStateTree";
 
 const NODE_W = 120;
 const NODE_H = 54;
@@ -211,6 +212,10 @@ interface GameTreeViewProps {
   onLoad: (file: File) => void;
   onUndo: () => void;
   onNodeClick: (nodeId: string) => void;
+  onComputeHeuristics?: (aiPlayer: "white" | "black") => {
+    nodes: number;
+    elapsedMs: number;
+  };
 }
 
 export const GameTreeView: React.FC<GameTreeViewProps> = ({
@@ -221,12 +226,17 @@ export const GameTreeView: React.FC<GameTreeViewProps> = ({
   onLoad,
   onUndo,
   onNodeClick,
+  onComputeHeuristics,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+  const [heuristicTarget, setHeuristicTarget] = useState<"white" | "black">(
+    "white",
+  );
+  const [heuristicInfo, setHeuristicInfo] = useState<string | null>(null);
 
   const playedPathSet = useMemo(
     () => (treeVersion >= 0 ? new Set(tree.playedPath) : new Set<string>()),
@@ -280,6 +290,7 @@ export const GameTreeView: React.FC<GameTreeViewProps> = ({
         <div className="tree-panel-stats">
           <span>{tree.totalNodes} nós</span>
           <span>profundidade {tree.maxDepth}</span>
+          {heuristicInfo && <span>h: {heuristicInfo}</span>}
         </div>
         <div className="tree-panel-actions">
           <button className="tree-btn" onClick={onUndo} title="Voltar jogada">
@@ -295,6 +306,34 @@ export const GameTreeView: React.FC<GameTreeViewProps> = ({
           >
             Carregar
           </button>
+          {onComputeHeuristics && (
+            <>
+              <select
+                value={heuristicTarget}
+                onChange={(e) =>
+                  setHeuristicTarget(e.target.value as "white" | "black")
+                }
+                title="Cor para a qual a heurística será calculada"
+                className="tree-btn"
+                style={{ padding: "4px" }}
+              >
+                <option value="white">h(Brancas)</option>
+                <option value="black">h(Pretas)</option>
+              </select>
+              <button
+                className="tree-btn"
+                title="Calcular heurística em todos os nós"
+                onClick={() => {
+                  const res = onComputeHeuristics(heuristicTarget);
+                  setHeuristicInfo(
+                    `${res.nodes} nós em ${res.elapsedMs.toFixed(1)}ms`,
+                  );
+                }}
+              >
+                Calcular h
+              </button>
+            </>
+          )}
           <input
             ref={fileInputRef}
             type="file"
@@ -435,6 +474,15 @@ export const GameTreeView: React.FC<GameTreeViewProps> = ({
                         ? `↓${n.data!.childIds.length}`
                         : ""}
                     </text>
+                    {n.data!.heuristic !== undefined && (
+                      <text
+                        x={8}
+                        y={NODE_H - 6}
+                        className="tree-node-heuristic"
+                      >
+                        h={n.data!.heuristic.toFixed(0)}
+                      </text>
+                    )}
                   </g>
                 );
               })}

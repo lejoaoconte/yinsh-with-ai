@@ -1,11 +1,12 @@
 import { useState, useCallback, useMemo } from "react";
+
 import {
   YinshGame,
   parseCoord,
   coordKey,
   coordToPixel,
   VALID_POSITIONS,
-} from "./GameMechanics";
+} from "cli/GameMechanics";
 
 const SPACING = 40;
 

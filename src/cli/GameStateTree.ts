@@ -1,5 +1,8 @@
 import { YinshGame } from "./GameMechanics";
-import type { YinshState, CellContent } from "./GameMechanics";
+import type { YinshState, CellContent, Player } from "./GameMechanics";
+
+import { evaluate as evaluateState } from "./Minimax";
+import { hashState } from "./stateHash";
 
 export function serializeState(state: Readonly<YinshState>): string {
   const boardEntries = Array.from(state.board.entries())
@@ -22,22 +25,7 @@ export function serializeState(state: Readonly<YinshState>): string {
   ].join("|");
 }
 
-export function hashState(state: Readonly<YinshState>): string {
-  const boardStr = Array.from(state.board.entries())
-    .filter(([, v]) => v !== null)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([k, v]) => `${k}:${v}`)
-    .join(",");
-
-  let h1 = 5381;
-  let h2 = 52711;
-  for (let i = 0; i < boardStr.length; i++) {
-    const c = boardStr.charCodeAt(i);
-    h1 = (((h1 << 5) + h1) ^ c) >>> 0;
-    h2 = (((h2 << 5) + h2) ^ c) >>> 0;
-  }
-  return h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0");
-}
+export { hashState } from "./stateHash";
 
 export interface TreeNodeData {
   id: string;
@@ -47,6 +35,7 @@ export interface TreeNodeData {
   childIds: string[];
   isPlayed: boolean;
   parentId: string | null;
+  heuristic?: number;
 }
 
 export interface SerializedState {
@@ -337,6 +326,9 @@ export class GameStateTree {
       lines.push(
         `      <childIds>${node.childIds.map(esc).join(",")}</childIds>`,
       );
+      if (node.heuristic !== undefined) {
+        lines.push(`      <heuristic>${node.heuristic}</heuristic>`);
+      }
       lines.push(`      <snapshot>`);
       const s = node.stateSnapshot;
       lines.push(
@@ -403,6 +395,7 @@ export class GameStateTree {
       const rr = snap.querySelector("ringsRemoved")!;
 
       const childIdsStr = getText(nodeEl as Element, "childIds");
+      const heuristicStr = getText(nodeEl as Element, "heuristic");
 
       const node: TreeNodeData = {
         id,
@@ -411,6 +404,7 @@ export class GameStateTree {
         isPlayed: getText(nodeEl as Element, "isPlayed") === "true",
         parentId: getText(nodeEl as Element, "parentId") || null,
         childIds: childIdsStr ? childIdsStr.split(",") : [],
+        heuristic: heuristicStr !== "" ? parseFloat(heuristicStr) : undefined,
         stateSnapshot: {
           board: boardEntries,
           currentPlayer: getText(snap, "currentPlayer"),
@@ -484,5 +478,41 @@ export class GameStateTree {
       if (node.depth > max) max = node.depth;
     }
     return max;
+  }
+
+  /**
+   * Calcula a heurística de todos os nós da árvore, do ponto de vista de
+   * `aiPlayer`. Retorna estatísticas de tempo e quantidade.
+   */
+  /**
+   * Retorna um array serializável de [hash, heurística] para todos os nós
+   * com heurística calculada. Pode ser enviado a um Web Worker como
+   * tabela de transposição para o Minimax.
+   */
+  getHeuristicTable(): [string, number][] {
+    const result: [string, number][] = [];
+    for (const [id, node] of this.nodes) {
+      if (node.heuristic !== undefined) {
+        result.push([id, node.heuristic]);
+      }
+    }
+    return result;
+  }
+
+  computeAllHeuristics(aiPlayer: Player): {
+    nodes: number;
+    elapsedMs: number;
+  } {
+    const t0 =
+      typeof performance !== "undefined" ? performance.now() : Date.now();
+    let count = 0;
+    for (const node of this.nodes.values()) {
+      const state = serializedToState(node.stateSnapshot);
+      node.heuristic = evaluateState(state, aiPlayer);
+      count++;
+    }
+    const t1 =
+      typeof performance !== "undefined" ? performance.now() : Date.now();
+    return { nodes: count, elapsedMs: t1 - t0 };
   }
 }
