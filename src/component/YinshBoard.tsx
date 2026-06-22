@@ -9,7 +9,14 @@ import type { Player, YinshState, CellContent } from "cli/GameMechanics";
 import type { SearchStats, Algorithm } from "cli/Minimax";
 
 import { GameTreeView } from "./GameTreeView";
+import { QLearningPanel } from "./QLearningPanel";
 import { getActor } from "cli/Minimax";
+import {
+  chooseAction,
+  deserializeQTable,
+  DEFAULT_QL_PARAMS,
+} from "cli/QLearning";
+import type { QTable, QLearningMetadata } from "cli/QLearning";
 import MinimaxWorker from "ts/minimax.worker.ts?worker";
 
 import type {
@@ -21,17 +28,40 @@ import type {
 const SPACING = 40;
 const BOARD_ANIM_DURATION = 1500;
 
+type AnyAlgorithm = Algorithm | "qlearning" | "random";
+
 interface MoveRecord {
   moveNum: number;
   player: Player;
   kind: "human" | "ai";
-  algorithm?: string;
+  algorithm?: AnyAlgorithm;
   depth?: number;
   movesConsidered: number;
   wallMs: number;
   computeMs: number;
   nodesEvaluated: number;
   heapDeltaMB: number;
+}
+
+type ExtendedStats = Omit<SearchStats, "algorithm"> & {
+  algorithm: AnyAlgorithm;
+  player: Player;
+  move: string | null;
+};
+
+function algLabel(a: AnyAlgorithm | undefined): string {
+  switch (a) {
+    case "alphabeta":
+      return "αβ";
+    case "minimax":
+      return "MM";
+    case "qlearning":
+      return "QL";
+    case "random":
+      return "Rnd";
+    default:
+      return "?";
+  }
 }
 
 function getHeapMB(): number {
@@ -77,15 +107,20 @@ const YinshBoard: React.FC = () => {
   } = useGameTree(initialGame);
   const [showTree, setShowTree] = useState(false);
 
-  type PlayerKind = "human" | "minimax" | "alphabeta";
+  type PlayerKind = "human" | "minimax" | "alphabeta" | "qlearning";
   const [whiteKind, setWhiteKind] = useState<PlayerKind>("human");
   const [blackKind, setBlackKind] = useState<PlayerKind>("human");
   const [whiteDepth, setWhiteDepth] = useState<number>(2);
   const [blackDepth, setBlackDepth] = useState<number>(2);
   const [aiThinking, setAiThinking] = useState(false);
-  const [lastAiStats, setLastAiStats] = useState<
-    (SearchStats & { player: Player; move: string | null }) | null
-  >(null);
+  const [lastAiStats, setLastAiStats] = useState<ExtendedStats | null>(null);
+  const [showQLPanel, setShowQLPanel] = useState(false);
+  const [qTableStatus, setQTableStatus] = useState<{
+    state: "idle" | "loading" | "ready" | "error";
+    meta: QLearningMetadata | null;
+    error: string | null;
+  }>({ state: "idle", meta: null, error: null });
+  const qTableRef = useRef<QTable | null>(null);
   const aiBusyRef = useRef(false);
   const workerRef = useRef<Worker | null>(null);
   const requestIdRef = useRef(0);
@@ -107,6 +142,32 @@ const YinshBoard: React.FC = () => {
       workerRef.current = null;
     };
   }, []);
+
+  const loadQTable = useCallback(async () => {
+    setQTableStatus({ state: "loading", meta: null, error: null });
+    try {
+      const url = `${import.meta.env.BASE_URL}qtable.json`;
+      const resp = await fetch(url, { cache: "no-store" });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const text = await resp.text();
+      const { table, meta } = deserializeQTable(text);
+      qTableRef.current = table;
+      setQTableStatus({ state: "ready", meta, error: null });
+    } catch (err) {
+      qTableRef.current = null;
+      setQTableStatus({
+        state: "error",
+        meta: null,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      void loadQTable();
+    });
+  }, [loadQTable]);
 
   const [boardReady, setBoardReady] = useState(false);
 
@@ -279,12 +340,89 @@ const YinshBoard: React.FC = () => {
   const actorDepth = actor === "white" ? whiteDepth : blackDepth;
   const actorIsAi = actorKind !== "human";
   const actorAlgorithm: Algorithm =
-    actorKind === "minimax" ? "minimax" : "alphabeta";
+    actorKind === "alphabeta" ? "alphabeta" : "minimax";
 
   useEffect(() => {
     if (state.phase === "game-over") return;
     if (!actorIsAi) return;
     if (aiBusyRef.current) return;
+
+    if (actorKind === "qlearning") {
+      const table = qTableRef.current;
+      if (!table) return;
+      aiBusyRef.current = true;
+      queueMicrotask(() => setAiThinking(true));
+
+      const game = new YinshGame({
+        board: new Map(state.board),
+        currentPlayer: state.currentPlayer,
+        phase: state.phase,
+        ringsPlaced: { ...state.ringsPlaced },
+        ringsRemoved: { ...state.ringsRemoved },
+        selectedRing: state.selectedRing,
+        detectedRuns: state.detectedRuns.map((r) => ({
+          coords: [...r.coords],
+          player: r.player,
+        })),
+        runRemovalPlayer: state.runRemovalPlayer,
+        winner: state.winner,
+      });
+      heapBeforeRef.current = getHeapMB();
+      const t0 = performance.now();
+      const choice = chooseAction(table, game, actor, {
+        ...DEFAULT_QL_PARAMS,
+        epsilon: 0,
+      });
+      const elapsed = performance.now() - t0;
+
+      queueMicrotask(() => {
+        if (!choice) {
+          aiBusyRef.current = false;
+          setAiThinking(false);
+          return;
+        }
+        const heapAfter = getHeapMB();
+        const heapDelta =
+          heapBeforeRef.current >= 0 && heapAfter >= 0
+            ? Math.max(0, heapAfter - heapBeforeRef.current)
+            : -1;
+        const wallMs = Date.now() - lastMoveTimeRef.current;
+        lastMoveTimeRef.current = Date.now();
+        moveCountRef.current++;
+        aiMoveJustAppliedRef.current = true;
+        setLastAiStats({
+          nodesEvaluated: 1,
+          cutoffs: 0,
+          elapsedMs: elapsed,
+          bestScore: choice.qValue,
+          depth: 0,
+          movesConsidered: 1,
+          algorithm: "qlearning",
+          player: actor,
+          move: choice.action,
+        });
+        setMoveLog((log) => [
+          ...log,
+          {
+            moveNum: moveCountRef.current,
+            player: actor,
+            kind: "ai",
+            algorithm: "qlearning",
+            depth: 0,
+            movesConsidered: 1,
+            wallMs,
+            computeMs: elapsed,
+            nodesEvaluated: 1,
+            heapDeltaMB: heapDelta,
+          },
+        ]);
+        applyRestoredGame(choice.child, false);
+        aiBusyRef.current = false;
+        setAiThinking(false);
+      });
+      return;
+    }
+
     const worker = workerRef.current;
     if (!worker) return;
 
@@ -321,14 +459,14 @@ const YinshBoard: React.FC = () => {
           lastMoveTimeRef.current = Date.now();
           moveCountRef.current++;
           aiMoveJustAppliedRef.current = true;
-          const randomStats = {
+          const randomStats: ExtendedStats = {
             nodesEvaluated: 1,
             cutoffs: 0,
             elapsedMs: 0,
             bestScore: 0,
             depth: 0,
             movesConsidered: moves.length,
-            algorithm: actorAlgorithm,
+            algorithm: "random",
             player: actor,
             move: randomCoord,
           };
@@ -456,7 +594,16 @@ const YinshBoard: React.FC = () => {
     return () => {
       worker.removeEventListener("message", handleMessage);
     };
-  }, [state, actor, actorIsAi, actorAlgorithm, actorDepth, applyRestoredGame]);
+  }, [
+    state,
+    actor,
+    actorIsAi,
+    actorKind,
+    actorAlgorithm,
+    actorDepth,
+    applyRestoredGame,
+    getHeuristicTable,
+  ]);
 
   const showHighlights = state.phase !== "placing-rings";
 
@@ -492,6 +639,21 @@ const YinshBoard: React.FC = () => {
           </div>
           <div className="header-right-actions">
             <button
+              className="tree-toggle-btn ql-toggle-btn"
+              onClick={() => setShowQLPanel(true)}
+              title={
+                qTableStatus.state === "ready"
+                  ? `Q-table: ${qTableStatus.meta?.stateCount.toLocaleString("pt-BR") ?? "?"} estados`
+                  : "Treinamento Q-Learning não carregado"
+              }
+            >
+              Q-Learning{" "}
+              <span
+                className={`ql-dot ql-dot-${qTableStatus.state}`}
+                aria-label={qTableStatus.state}
+              />
+            </button>
+            <button
               className="tree-toggle-btn"
               onClick={() => setShowTree((v) => !v)}
             >
@@ -518,8 +680,11 @@ const YinshBoard: React.FC = () => {
               <option value="human">Humano</option>
               <option value="minimax">IA — Antecipação Limitada</option>
               <option value="alphabeta">IA — Minimax + αβ</option>
+              <option value="qlearning" disabled={qTableStatus.state !== "ready"}>
+                IA — Q-Learning{qTableStatus.state !== "ready" ? " (não carregado)" : ""}
+              </option>
             </select>
-            {whiteKind !== "human" && (
+            {whiteKind !== "human" && whiteKind !== "qlearning" && (
               <label className="ai-depth-label">
                 Profundidade:
                 <input
@@ -549,8 +714,11 @@ const YinshBoard: React.FC = () => {
               <option value="human">Humano</option>
               <option value="minimax">IA — Antecipação Limitada</option>
               <option value="alphabeta">IA — Minimax + αβ</option>
+              <option value="qlearning" disabled={qTableStatus.state !== "ready"}>
+                IA — Q-Learning{qTableStatus.state !== "ready" ? " (não carregado)" : ""}
+              </option>
             </select>
-            {blackKind !== "human" && (
+            {blackKind !== "human" && blackKind !== "qlearning" && (
               <label className="ai-depth-label">
                 Profundidade:
                 <input
@@ -577,10 +745,13 @@ const YinshBoard: React.FC = () => {
             {lastAiStats && !aiThinking && (
               <span className="ai-stats">
                 Última IA [{lastAiStats.player === "white" ? "B" : "P"}{" "}
-                {lastAiStats.algorithm === "alphabeta" ? "αβ" : "MM"} d=
-                {lastAiStats.depth}]: {lastAiStats.elapsedMs.toFixed(0)}ms ·{" "}
+                {algLabel(lastAiStats.algorithm)}{" "}
+                {lastAiStats.algorithm === "qlearning"
+                  ? ""
+                  : `d=${lastAiStats.depth} `}
+                ]: {lastAiStats.elapsedMs.toFixed(0)}ms ·{" "}
                 {lastAiStats.nodesEvaluated} nós · {lastAiStats.cutoffs} cortes
-                · score {lastAiStats.bestScore.toFixed(0)}
+                · score {lastAiStats.bestScore.toFixed(2)}
               </span>
             )}
             <button
@@ -651,7 +822,11 @@ const YinshBoard: React.FC = () => {
                     <td>
                       {r.kind === "human"
                         ? "Humano"
-                        : `${r.algorithm === "alphabeta" ? "αβ" : "MM"} d=${r.depth}`}
+                        : r.algorithm === "qlearning"
+                          ? "QL"
+                          : r.algorithm === "random"
+                            ? "Rnd"
+                            : `${algLabel(r.algorithm)} d=${r.depth}`}
                     </td>
                     <td>{r.wallMs.toFixed(0)} ms</td>
                     <td>
@@ -817,6 +992,11 @@ const YinshBoard: React.FC = () => {
           onComputeHeuristics={computeHeuristics}
         />
       )}
+
+      <QLearningPanel
+        open={showQLPanel}
+        onClose={() => setShowQLPanel(false)}
+      />
     </div>
   );
 };

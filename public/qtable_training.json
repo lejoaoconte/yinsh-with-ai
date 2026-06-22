@@ -1,0 +1,818 @@
+{
+  "meta": {
+    "totalEpisodes": 5000,
+    "trainedAt": "2026-06-22T01:43:56.726Z",
+    "opponent": "alphabeta(d=3, ε=0.1)",
+    "params": {
+      "alpha": 0.2,
+      "gamma": 0.95,
+      "epsilon": 0.03,
+      "useHeuristicTieBreak": true
+    },
+    "finalWinRate": 0,
+    "stateCount": 120581,
+    "entryCount": 125266
+  },
+  "history": [
+    {
+      "episode": 50,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2973534706941388
+    },
+    {
+      "episode": 100,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2946529305861172
+    },
+    {
+      "episode": 150,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2919523904780956
+    },
+    {
+      "episode": 200,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.289251850370074
+    },
+    {
+      "episode": 250,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2865513102620524
+    },
+    {
+      "episode": 300,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2838507701540308
+    },
+    {
+      "episode": 350,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2811502300460092
+    },
+    {
+      "episode": 400,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2784496899379876
+    },
+    {
+      "episode": 450,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.27574914982996596
+    },
+    {
+      "episode": 500,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2730486097219444
+    },
+    {
+      "episode": 550,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.27034806961392277
+    },
+    {
+      "episode": 600,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.26764752950590115
+    },
+    {
+      "episode": 650,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2649469893978796
+    },
+    {
+      "episode": 700,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.26224644928985796
+    },
+    {
+      "episode": 750,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.25954590918183634
+    },
+    {
+      "episode": 800,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2568453690738147
+    },
+    {
+      "episode": 850,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.25414482896579316
+    },
+    {
+      "episode": 900,
+      "wins": 15,
+      "losses": 15,
+      "draws": 0,
+      "winRate": 0.5,
+      "epsilon": 0.25144428885777154
+    },
+    {
+      "episode": 950,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.24874374874974994
+    },
+    {
+      "episode": 1000,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.24604320864172835
+    },
+    {
+      "episode": 1050,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.24334266853370673
+    },
+    {
+      "episode": 1100,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2406421284256851
+    },
+    {
+      "episode": 1150,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.23794158831766352
+    },
+    {
+      "episode": 1200,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.23524104820964192
+    },
+    {
+      "episode": 1250,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2325405081016203
+    },
+    {
+      "episode": 1300,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2298399679935987
+    },
+    {
+      "episode": 1350,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2271394278855771
+    },
+    {
+      "episode": 1400,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2244388877775555
+    },
+    {
+      "episode": 1450,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.22173834766953388
+    },
+    {
+      "episode": 1500,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.21903780756151228
+    },
+    {
+      "episode": 1550,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.2163372674534907
+    },
+    {
+      "episode": 1600,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.21363672734546907
+    },
+    {
+      "episode": 1650,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.21093618723744745
+    },
+    {
+      "episode": 1700,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.20823564712942588
+    },
+    {
+      "episode": 1750,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.20553510702140426
+    },
+    {
+      "episode": 1800,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.20283456691338264
+    },
+    {
+      "episode": 1850,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.20013402680536108
+    },
+    {
+      "episode": 1900,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.19743348669733946
+    },
+    {
+      "episode": 1950,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.19473294658931783
+    },
+    {
+      "episode": 2000,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.19203240648129624
+    },
+    {
+      "episode": 2050,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.18933186637327465
+    },
+    {
+      "episode": 2100,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.18663132626525303
+    },
+    {
+      "episode": 2150,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.18393078615723144
+    },
+    {
+      "episode": 2200,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.18123024604920981
+    },
+    {
+      "episode": 2250,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.17852970594118822
+    },
+    {
+      "episode": 2300,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1758291658331666
+    },
+    {
+      "episode": 2350,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.173128625725145
+    },
+    {
+      "episode": 2400,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.17042808561712341
+    },
+    {
+      "episode": 2450,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1677275455091018
+    },
+    {
+      "episode": 2500,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1650270054010802
+    },
+    {
+      "episode": 2550,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.16232646529305858
+    },
+    {
+      "episode": 2600,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.159625925185037
+    },
+    {
+      "episode": 2650,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1569253850770154
+    },
+    {
+      "episode": 2700,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.15422484496899377
+    },
+    {
+      "episode": 2750,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.15152430486097218
+    },
+    {
+      "episode": 2800,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.14882376475295056
+    },
+    {
+      "episode": 2850,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.14612322464492894
+    },
+    {
+      "episode": 2900,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.14342268453690737
+    },
+    {
+      "episode": 2950,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.14072214442888575
+    },
+    {
+      "episode": 3000,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.13802160432086416
+    },
+    {
+      "episode": 3050,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.13532106421284254
+    },
+    {
+      "episode": 3100,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.13262052410482092
+    },
+    {
+      "episode": 3150,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.12991998399679933
+    },
+    {
+      "episode": 3200,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.12721944388877773
+    },
+    {
+      "episode": 3250,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.12451890378075614
+    },
+    {
+      "episode": 3300,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.12181836367273452
+    },
+    {
+      "episode": 3350,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.11911782356471293
+    },
+    {
+      "episode": 3400,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1164172834566913
+    },
+    {
+      "episode": 3450,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.11371674334866971
+    },
+    {
+      "episode": 3500,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.11101620324064812
+    },
+    {
+      "episode": 3550,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1083156631326265
+    },
+    {
+      "episode": 3600,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.1056151230246049
+    },
+    {
+      "episode": 3650,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.10291458291658329
+    },
+    {
+      "episode": 3700,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.10021404280856167
+    },
+    {
+      "episode": 3750,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.0975135027005401
+    },
+    {
+      "episode": 3800,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.09481296259251848
+    },
+    {
+      "episode": 3850,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.09211242248449689
+    },
+    {
+      "episode": 3900,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.08941188237647527
+    },
+    {
+      "episode": 3950,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.08671134226845365
+    },
+    {
+      "episode": 4000,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.08401080216043205
+    },
+    {
+      "episode": 4050,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.08131026205241046
+    },
+    {
+      "episode": 4100,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.07860972194438887
+    },
+    {
+      "episode": 4150,
+      "wins": 15,
+      "losses": 15,
+      "draws": 0,
+      "winRate": 0.5,
+      "epsilon": 0.07590918183636725
+    },
+    {
+      "episode": 4200,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.07320864172834562
+    },
+    {
+      "episode": 4250,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.07050810162032403
+    },
+    {
+      "episode": 4300,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.06780756151230244
+    },
+    {
+      "episode": 4350,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.06510702140428085
+    },
+    {
+      "episode": 4400,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.062406481296259225
+    },
+    {
+      "episode": 4450,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.05970594118823763
+    },
+    {
+      "episode": 4500,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.05700540108021601
+    },
+    {
+      "episode": 4550,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.05430486097219439
+    },
+    {
+      "episode": 4600,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.051604320864172826
+    },
+    {
+      "episode": 4650,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.048903780756151205
+    },
+    {
+      "episode": 4700,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.046203240648129584
+    },
+    {
+      "episode": 4750,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.043502700540107964
+    },
+    {
+      "episode": 4800,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.0408021604320864
+    },
+    {
+      "episode": 4850,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.03810162032406478
+    },
+    {
+      "episode": 4900,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.03540108021604321
+    },
+    {
+      "episode": 4950,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.03270054010802159
+    },
+    {
+      "episode": 5000,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.02999999999999997
+    }
+  ]
+}
