@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "train": "tsx scripts/trainQLearning.ts"
+    "train": "tsx scripts/trainQLearning.ts",
+    "train:vs-random": "EPISODES=2000 OPPONENT=random EPSILON_START=0.5 EPSILON_END=0.05 tsx scripts/trainQLearning.ts",
+    "train:vs-alphabeta": "EPISODES=3000 OPPONENT=alphabeta MINIMAX_DEPTH=2 OPPONENT_EPSILON=0.15 EPSILON_START=0.5 EPSILON_END=0.05 tsx scripts/trainQLearning.ts"
   },
   "dependencies": {
     "react": "^19.2.4",

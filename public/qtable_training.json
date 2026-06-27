@@ -1,17 +1,17 @@
 {
   "meta": {
-    "totalEpisodes": 5000,
-    "trainedAt": "2026-06-22T01:43:56.726Z",
-    "opponent": "alphabeta(d=3, ε=0.1)",
+    "totalEpisodes": 3000,
+    "trainedAt": "2026-06-23T22:13:24.785Z",
+    "opponent": "alphabeta(d=2, ε=0.15)",
     "params": {
       "alpha": 0.2,
       "gamma": 0.95,
-      "epsilon": 0.03,
+      "epsilon": 0.05,
       "useHeuristicTieBreak": true
     },
-    "finalWinRate": 0,
-    "stateCount": 120581,
-    "entryCount": 125266
+    "finalWinRate": 0.5,
+    "stateCount": 94563,
+    "entryCount": 97210
   },
   "history": [
     {
@@ -20,7 +20,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2973534706941388
+      "epsilon": 0.49264754918306103
     },
     {
       "episode": 100,
@@ -28,15 +28,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2946529305861172
+      "epsilon": 0.4851450483494498
     },
     {
       "episode": 150,
-      "wins": 0,
-      "losses": 30,
+      "wins": 15,
+      "losses": 15,
       "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.2919523904780956
+      "winRate": 0.5,
+      "epsilon": 0.4776425475158386
     },
     {
       "episode": 200,
@@ -44,7 +44,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.289251850370074
+      "epsilon": 0.4701400466822274
     },
     {
       "episode": 250,
@@ -52,15 +52,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2865513102620524
+      "epsilon": 0.4626375458486162
     },
     {
       "episode": 300,
-      "wins": 0,
-      "losses": 30,
+      "wins": 15,
+      "losses": 15,
       "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.2838507701540308
+      "winRate": 0.5,
+      "epsilon": 0.455135045015005
     },
     {
       "episode": 350,
@@ -68,15 +68,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2811502300460092
+      "epsilon": 0.4476325441813938
     },
     {
       "episode": 400,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.2784496899379876
+      "wins": 15,
+      "losses": 0,
+      "draws": 15,
+      "winRate": 0.5,
+      "epsilon": 0.4401300433477826
     },
     {
       "episode": 450,
@@ -84,15 +84,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.27574914982996596
+      "epsilon": 0.43262754251417135
     },
     {
       "episode": 500,
-      "wins": 0,
-      "losses": 30,
+      "wins": 15,
+      "losses": 15,
       "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.2730486097219444
+      "winRate": 0.5,
+      "epsilon": 0.4251250416805602
     },
     {
       "episode": 550,
@@ -100,15 +100,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.27034806961392277
+      "epsilon": 0.417622540846949
     },
     {
       "episode": 600,
-      "wins": 0,
-      "losses": 30,
+      "wins": 15,
+      "losses": 15,
       "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.26764752950590115
+      "winRate": 0.5,
+      "epsilon": 0.4101200400133378
     },
     {
       "episode": 650,
@@ -116,7 +116,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2649469893978796
+      "epsilon": 0.4026175391797266
     },
     {
       "episode": 700,
@@ -124,7 +124,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.26224644928985796
+      "epsilon": 0.3951150383461154
     },
     {
       "episode": 750,
@@ -132,7 +132,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.25954590918183634
+      "epsilon": 0.38761253751250413
     },
     {
       "episode": 800,
@@ -140,23 +140,23 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2568453690738147
+      "epsilon": 0.380110036678893
     },
     {
       "episode": 850,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.25414482896579316
-    },
-    {
-      "episode": 900,
       "wins": 15,
       "losses": 15,
       "draws": 0,
       "winRate": 0.5,
-      "epsilon": 0.25144428885777154
+      "epsilon": 0.3726075358452817
+    },
+    {
+      "episode": 900,
+      "wins": 0,
+      "losses": 30,
+      "draws": 0,
+      "winRate": 0,
+      "epsilon": 0.3651050350116706
     },
     {
       "episode": 950,
@@ -164,7 +164,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.24874374874974994
+      "epsilon": 0.3576025341780593
     },
     {
       "episode": 1000,
@@ -172,7 +172,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.24604320864172835
+      "epsilon": 0.35010003334444817
     },
     {
       "episode": 1050,
@@ -180,7 +180,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.24334266853370673
+      "epsilon": 0.3425975325108369
     },
     {
       "episode": 1100,
@@ -188,7 +188,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2406421284256851
+      "epsilon": 0.33509503167722576
     },
     {
       "episode": 1150,
@@ -196,7 +196,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.23794158831766352
+      "epsilon": 0.3275925308436145
     },
     {
       "episode": 1200,
@@ -204,7 +204,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.23524104820964192
+      "epsilon": 0.32009003001000336
     },
     {
       "episode": 1250,
@@ -212,7 +212,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2325405081016203
+      "epsilon": 0.3125875291763921
     },
     {
       "episode": 1300,
@@ -220,7 +220,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2298399679935987
+      "epsilon": 0.30508502834278095
     },
     {
       "episode": 1350,
@@ -228,15 +228,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2271394278855771
+      "epsilon": 0.2975825275091697
     },
     {
       "episode": 1400,
-      "wins": 0,
-      "losses": 30,
+      "wins": 15,
+      "losses": 15,
       "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.2244388877775555
+      "winRate": 0.5,
+      "epsilon": 0.29008002667555854
     },
     {
       "episode": 1450,
@@ -244,7 +244,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.22173834766953388
+      "epsilon": 0.2825775258419473
     },
     {
       "episode": 1500,
@@ -252,7 +252,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.21903780756151228
+      "epsilon": 0.27507502500833614
     },
     {
       "episode": 1550,
@@ -260,7 +260,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.2163372674534907
+      "epsilon": 0.2675725241747249
     },
     {
       "episode": 1600,
@@ -268,7 +268,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.21363672734546907
+      "epsilon": 0.26007002334111373
     },
     {
       "episode": 1650,
@@ -276,7 +276,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.21093618723744745
+      "epsilon": 0.2525675225075025
     },
     {
       "episode": 1700,
@@ -284,7 +284,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.20823564712942588
+      "epsilon": 0.24506502167389133
     },
     {
       "episode": 1750,
@@ -292,7 +292,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.20553510702140426
+      "epsilon": 0.23756252084028007
     },
     {
       "episode": 1800,
@@ -300,7 +300,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.20283456691338264
+      "epsilon": 0.23006002000666886
     },
     {
       "episode": 1850,
@@ -308,7 +308,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.20013402680536108
+      "epsilon": 0.22255751917305772
     },
     {
       "episode": 1900,
@@ -316,7 +316,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.19743348669733946
+      "epsilon": 0.21505501833944646
     },
     {
       "episode": 1950,
@@ -324,15 +324,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.19473294658931783
+      "epsilon": 0.20755251750583525
     },
     {
       "episode": 2000,
-      "wins": 0,
-      "losses": 30,
+      "wins": 15,
+      "losses": 15,
       "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.19203240648129624
+      "winRate": 0.5,
+      "epsilon": 0.2000500166722241
     },
     {
       "episode": 2050,
@@ -340,7 +340,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.18933186637327465
+      "epsilon": 0.19254751583861285
     },
     {
       "episode": 2100,
@@ -348,7 +348,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.18663132626525303
+      "epsilon": 0.18504501500500165
     },
     {
       "episode": 2150,
@@ -356,7 +356,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.18393078615723144
+      "epsilon": 0.1775425141713905
     },
     {
       "episode": 2200,
@@ -364,7 +364,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.18123024604920981
+      "epsilon": 0.17004001333777924
     },
     {
       "episode": 2250,
@@ -372,7 +372,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.17852970594118822
+      "epsilon": 0.16253751250416804
     },
     {
       "episode": 2300,
@@ -380,15 +380,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.1758291658331666
+      "epsilon": 0.1550350116705569
     },
     {
       "episode": 2350,
       "wins": 0,
-      "losses": 30,
-      "draws": 0,
+      "losses": 15,
+      "draws": 15,
       "winRate": 0,
-      "epsilon": 0.173128625725145
+      "epsilon": 0.14753251083694563
     },
     {
       "episode": 2400,
@@ -396,7 +396,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.17042808561712341
+      "epsilon": 0.14003001000333443
     },
     {
       "episode": 2450,
@@ -404,7 +404,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.1677275455091018
+      "epsilon": 0.13252750916972322
     },
     {
       "episode": 2500,
@@ -412,7 +412,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.1650270054010802
+      "epsilon": 0.12502500833611202
     },
     {
       "episode": 2550,
@@ -420,7 +420,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.16232646529305858
+      "epsilon": 0.11752250750250082
     },
     {
       "episode": 2600,
@@ -428,7 +428,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.159625925185037
+      "epsilon": 0.11002000666888961
     },
     {
       "episode": 2650,
@@ -436,7 +436,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.1569253850770154
+      "epsilon": 0.10251750583527841
     },
     {
       "episode": 2700,
@@ -444,7 +444,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.15422484496899377
+      "epsilon": 0.09501500500166721
     },
     {
       "episode": 2750,
@@ -452,7 +452,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.15152430486097218
+      "epsilon": 0.087512504168056
     },
     {
       "episode": 2800,
@@ -460,7 +460,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.14882376475295056
+      "epsilon": 0.0800100033344448
     },
     {
       "episode": 2850,
@@ -468,7 +468,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.14612322464492894
+      "epsilon": 0.0725075025008336
     },
     {
       "episode": 2900,
@@ -476,7 +476,7 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.14342268453690737
+      "epsilon": 0.0650050016672224
     },
     {
       "episode": 2950,
@@ -484,335 +484,15 @@
       "losses": 30,
       "draws": 0,
       "winRate": 0,
-      "epsilon": 0.14072214442888575
+      "epsilon": 0.05750250083361119
     },
     {
       "episode": 3000,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.13802160432086416
-    },
-    {
-      "episode": 3050,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.13532106421284254
-    },
-    {
-      "episode": 3100,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.13262052410482092
-    },
-    {
-      "episode": 3150,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.12991998399679933
-    },
-    {
-      "episode": 3200,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.12721944388877773
-    },
-    {
-      "episode": 3250,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.12451890378075614
-    },
-    {
-      "episode": 3300,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.12181836367273452
-    },
-    {
-      "episode": 3350,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.11911782356471293
-    },
-    {
-      "episode": 3400,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.1164172834566913
-    },
-    {
-      "episode": 3450,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.11371674334866971
-    },
-    {
-      "episode": 3500,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.11101620324064812
-    },
-    {
-      "episode": 3550,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.1083156631326265
-    },
-    {
-      "episode": 3600,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.1056151230246049
-    },
-    {
-      "episode": 3650,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.10291458291658329
-    },
-    {
-      "episode": 3700,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.10021404280856167
-    },
-    {
-      "episode": 3750,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.0975135027005401
-    },
-    {
-      "episode": 3800,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.09481296259251848
-    },
-    {
-      "episode": 3850,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.09211242248449689
-    },
-    {
-      "episode": 3900,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.08941188237647527
-    },
-    {
-      "episode": 3950,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.08671134226845365
-    },
-    {
-      "episode": 4000,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.08401080216043205
-    },
-    {
-      "episode": 4050,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.08131026205241046
-    },
-    {
-      "episode": 4100,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.07860972194438887
-    },
-    {
-      "episode": 4150,
       "wins": 15,
       "losses": 15,
       "draws": 0,
       "winRate": 0.5,
-      "epsilon": 0.07590918183636725
-    },
-    {
-      "episode": 4200,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.07320864172834562
-    },
-    {
-      "episode": 4250,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.07050810162032403
-    },
-    {
-      "episode": 4300,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.06780756151230244
-    },
-    {
-      "episode": 4350,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.06510702140428085
-    },
-    {
-      "episode": 4400,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.062406481296259225
-    },
-    {
-      "episode": 4450,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.05970594118823763
-    },
-    {
-      "episode": 4500,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.05700540108021601
-    },
-    {
-      "episode": 4550,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.05430486097219439
-    },
-    {
-      "episode": 4600,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.051604320864172826
-    },
-    {
-      "episode": 4650,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.048903780756151205
-    },
-    {
-      "episode": 4700,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.046203240648129584
-    },
-    {
-      "episode": 4750,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.043502700540107964
-    },
-    {
-      "episode": 4800,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.0408021604320864
-    },
-    {
-      "episode": 4850,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.03810162032406478
-    },
-    {
-      "episode": 4900,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.03540108021604321
-    },
-    {
-      "episode": 4950,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.03270054010802159
-    },
-    {
-      "episode": 5000,
-      "wins": 0,
-      "losses": 30,
-      "draws": 0,
-      "winRate": 0,
-      "epsilon": 0.02999999999999997
+      "epsilon": 0.04999999999999999
     }
   ]
 }

@@ -114,8 +114,12 @@ function opponentChoose(
   game: YinshGame,
   oppPlayer: Player,
   oppEpsilon: number,
+  forceOpponent?: OpponentKind,
+  forceDepth?: number,
 ): YinshGame | null {
-  if (OPPONENT === "minimax" || OPPONENT === "alphabeta") {
+  const kind = forceOpponent ?? OPPONENT;
+  const depth = forceDepth ?? MINIMAX_DEPTH;
+  if (kind === "minimax" || kind === "alphabeta") {
     // ε-greedy no oponente: com probabilidade oppEpsilon joga aleatório.
     if (oppEpsilon > 0 && rng() < oppEpsilon) {
       return randomChild(game);
@@ -123,8 +127,8 @@ function opponentChoose(
     const res = findBestMove(
       game,
       oppPlayer,
-      MINIMAX_DEPTH,
-      OPPONENT === "alphabeta" ? "alphabeta" : "minimax",
+      depth,
+      kind === "alphabeta" ? "alphabeta" : "minimax",
     );
     return res.bestGame;
   }
@@ -149,6 +153,7 @@ function playEpisode(
   params: QLearningParams,
   learn: boolean,
   oppEpsilon: number,
+  evalOpponent?: { kind: OpponentKind; depth: number },
 ): EpisodeResult {
   let game = new YinshGame();
   let plies = 0;
@@ -206,7 +211,7 @@ function playEpisode(
       }
       game = choice.child;
     } else {
-      const next = opponentChoose(game, actor, oppEpsilon);
+      const next = opponentChoose(game, actor, oppEpsilon, evalOpponent?.kind, evalOpponent?.depth);
       if (!next) break;
       game = next;
     }
@@ -227,6 +232,14 @@ function playEpisode(
   return { outcome, plies, updates };
 }
 
+// Oponente fixo para avaliação: Alpha-Beta d=2 (determinístico).
+// Independente do oponente usado no treino, garantindo que a métrica
+// reflita a força real do agente contra um adversário não-trivial.
+const EVAL_OPPONENT: { kind: OpponentKind; depth: number } = {
+  kind: "alphabeta",
+  depth: 2,
+};
+
 function evaluateAgent(
   table: QTable,
   games: number,
@@ -242,8 +255,9 @@ function evaluateAgent(
     d = 0;
   for (let i = 0; i < games; i++) {
     const color: Player = i % 2 === 0 ? "white" : "black";
-    // Avaliação sempre contra oponente determinístico (oppEpsilon = 0).
-    const r = playEpisode(table, color, evalParams, false, 0);
+    // Avaliação sempre contra Alpha-Beta d=2 determinístico,
+    // independente do oponente de treino.
+    const r = playEpisode(table, color, evalParams, false, 0, EVAL_OPPONENT);
     if (r.outcome === "win") w++;
     else if (r.outcome === "loss") l++;
     else d++;
